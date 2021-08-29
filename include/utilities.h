@@ -12,5 +12,4 @@ void readTest(std::ifstream& file, std::string userChoice = "");
 
 void startTimer();
 
-void fileSize();
 #endif
