@@ -2,9 +2,9 @@
 A program that calculates your WPM and accuracy
 
 <h3>How to run</h3>
-1. Navigate to typing_test directory
-2. Type in make to compile
-3. Type in ./run to execute
+1. Navigate to typing_test directory. 
+2. Type in make to compile. 
+3. Type in ./run to execute. 
 
 <h3>Progress</h3>
 <b>Sprint 1</b>
