@@ -19,4 +19,10 @@ Navigate to typing_test directory in terminal -> Type in 'make' to compile -> Ty
 * Updates to the next paragraph after the initial paragraph is complete.
 * Appropriate colors added for correct characters and incorrect characters. Green for right, red for wrong. Backspace resets the characters color and pointer.
 
+<b>Sprint 3</b>
 
+* Calculate the WPM and Accuracy using the relevant formula.
+* Calculate num of correct / incorrect characters and appropriately handle when user corrects error.
+* Allow user to exit upon Ctrl + C (override system raw)
+* Create an infinite loop of paragraphs when text too short. 
+* Exit program and display results once 60 second timer runs out in thread.
