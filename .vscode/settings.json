@@ -65,5 +65,6 @@
         "utility": "cpp",
         "vector": "cpp",
         "thread": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

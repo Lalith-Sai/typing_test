@@ -1,5 +1,4 @@
 #include "../include/utilities.h"
-#include "../include/testData.h"
 
 int main(int argc, char *argv[]) {
     Test test;
@@ -12,9 +11,10 @@ int main(int argc, char *argv[]) {
         readTest(in);
     }
 
-    std::thread t1(startTimer);
-    test.startTest(in);
-    
+    std::thread t1(startTimer, std::ref(test));
+    test.start(in);
+
     t1.join();
+
     return 0;
 }

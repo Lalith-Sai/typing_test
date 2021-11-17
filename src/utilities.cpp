@@ -23,12 +23,14 @@ void readTest(std::ifstream& file, std::string userChoice) {
 
 }
 
-void startTimer() {
+//THREAD
+void startTimer(Test& t) {
     for (int i = 0; i <= 60; i++) {
         sleep(1);
     }
 
-    std::cout << "STOP" << std::endl;
+    std::cout << CLEAR;
+    t.calcWPM();
+    t.calcAccuracy();
     exit(EXIT_SUCCESS);
-
 }

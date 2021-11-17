@@ -1,36 +1,62 @@
 #include "../include/utilities.h"
 #include "../include/testData.h"
 
-void Test::calcWPM() {
+Test::Test() {
+    ptr = 0;
+    correctLetters = 0;
+    wrongLetters = 0;
+    WPM = 0;
+    accuracy = 0;
+}
 
+void Test::calcWPM() {
+    int allEntries = correctLetters + wrongLetters;
+    double grossWPM = (allEntries / 5) / 1;
+    
+    WPM = grossWPM - (wrongLetters / 1);
+
+    std::cout << "WPM: " << WPM << std::endl;
 }
 
 void Test::calcAccuracy() {
+    if (correctLetters + wrongLetters == 0) {
+        accuracy = 0;
+    }
+    else {
+        accuracy = (correctLetters / static_cast<double>(correctLetters + wrongLetters)) * 100;
+        accuracy = round(accuracy * 100.0) / 100.0;
+    }
 
+    std::cout << "Accuracy: " << accuracy << std::endl;;
 }
 
 void Test::correctLetter(std::string& line) {
-    std::string tmp = "";
-    tmp += GREEN;
-    tmp += line.at(ptr);
-    tmp += WHITE;
-
-    line.replace(ptr, 1, tmp);
+    std::string buffer = "";
+    buffer += GREEN;
+    buffer += line.at(ptr);
+    buffer += WHITE;
+    
+    line.replace(ptr, 1, buffer);
+    
+    correctLetters++;
     ptr += 10;
 }
 
 void Test::wrongLetter(std::string& line) {
-    std::string tmp = "";
+    std::string buffer = "";
     if (line.at(ptr) == ' ') {
-        tmp += REDBG;
+        buffer += REDBG;
     }
     else {
-        tmp += RED;
+        buffer += RED;
     }
-    tmp += line.at(ptr);
-    tmp += WHITE;
+    buffer += line.at(ptr);
+    buffer += WHITE;
 
-    line.replace(ptr, 1, tmp);
+    line.replace(ptr, 1, buffer);
+
+    wrongLetters++;
+
     ptr += 10;
 }
 
@@ -41,6 +67,12 @@ void Test::scanParagraph(std::string line) {
     while (ptr < line.length()) {
         char c  = getchar();
 
+        //Exits program upon Ctrl + C
+        if (c == 3) {
+            system("stty cooked");
+            exit(1);
+        }
+
         if (c == line.at(ptr)) {
             correctLetter(line);
         }
@@ -48,9 +80,14 @@ void Test::scanParagraph(std::string line) {
             if (ptr == 0) {
                 continue;
             }
+
+            std::string tmp = line.substr(ptr - 10, ptr - 5);
+            std::string letterColor = tmp.substr(0, 5);
+            if (letterColor == RED || letterColor == REDBG) 
+                wrongLetters--;
             
-            std::string tmp(1, line.at(ptr - 5));
-            line.replace(ptr - 10, 10, tmp);
+            std::string buffer(1, line.at(ptr - 5));
+            line.replace(ptr - 10, 10, buffer);
             ptr -= 10;
         }
         else {
@@ -62,7 +99,7 @@ void Test::scanParagraph(std::string line) {
     system("stty cooked");
 }
 
-void Test::startTest(std::ifstream& file) {
+void Test::start(std::ifstream& file) {
     std::string line;
 
     while (!file.eof()) {
@@ -75,9 +112,9 @@ void Test::startTest(std::ifstream& file) {
         std::cout << line << std::endl;
 
         scanParagraph(line);
-        std::cout << std::endl;
     }
 
-    std::cout << "END" << std::endl;
-
+    file.clear();
+    file.seekg(0);
+    start(file);
 }
