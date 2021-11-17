@@ -1,6 +1,9 @@
 # typing_test
 A program that calculates your WPM and accuracy
 
+<h3>How to run</h3>
+Navigate to typing_test directory in terminal -> Type in 'make' to compile -> Type in ./run to execute
+
 <h3>Progress</h3>
 <b>Sprint 1</b>
 
